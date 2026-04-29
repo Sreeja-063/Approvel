@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="main-container">
+    <h1>Loan Approval Prediction</h1>
+    <p class="subtitle">Check your loan eligibility instantly</p>
+
+    <form action="/predict" method="post" class="grid-form">
+
+        <div class="form-group">
+            <label>Dependents</label>
+            <input type="number" name="f1" required>
+        </div>
+
+        <div class="form-group">
+            <label>Education</label>
+            <select name="f2">
+                <option value="1">Graduate</option>
+                <option value="0">Not Graduate</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Self Employed</label>
+            <select name="f3">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Annual Income</label>
+            <input type="number" name="f4" required>
+        </div>
+
+        <div class="form-group">
+            <label>Loan Amount</label>
+            <input type="number" name="f5" required>
+        </div>
+
+        <div class="form-group">
+            <label>Loan Term</label>
+            <input type="number" name="f6" required>
+        </div>
+
+        <div class="form-group">
+            <label>CIBIL Score</label>
+            <input type="number" name="f7" min="300" max="900" required>
+        </div>
+
+        <div class="form-group">
+            <label>Residential Assets</label>
+            <input type="number" name="f8" required>
+        </div>
+
+        <div class="form-group">
+            <label>Commercial Assets</label>
+            <input type="number" name="f9" required>
+        </div>
+
+        <div class="form-group">
+            <label>Luxury Assets</label>
+            <input type="number" name="f10" required>
+        </div>
+
+        <div class="form-group full-width">
+            <label>Bank Assets</label>
+            <input type="number" name="f11" required>
+        </div>
+
+        <div class="buttons full-width">
+            <button type="submit">Predict</button>
+            <button type="reset" class="clear-btn">Clear</button>
+        </div>
+
+    </form>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <h2 id="resultText">{{ prediction_text }}</h2>
+        <button onclick="closePopup()">OK</button>
+    </div>
+</div>
+
+<script>
+window.onload = function() {
+    var result = "{{ prediction_text }}";
+    if (result && result !== "None") {
+        document.getElementById("popup").style.display = "block";
+
+        let text = document.getElementById("resultText");
+        if (result.includes("Approved")) {
+            text.style.color = "#16a34a";
+        } else {
+            text.style.color = "#dc2626";
+        }
+    }
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
